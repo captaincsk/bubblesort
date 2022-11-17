@@ -1,15 +1,14 @@
 var express = require('express');  
 var app = express();  
 
-const http = require('http')
-const fs = require('fs')
-const fileContent =fs.readFileSync('index.html')
+app.use(express.static('public'));
 
-const server = http.createServer((req, res)=>{
-    res.writeHead(200, { 'Content-type' : 'text/html'})
-    res.end(fileContent)
-})
+ app.get('/', function (req, res) {
+    res.sendFile(__dirname + "/" + "index.html");
+});
 
-server.listen(80, '127.0.0.1', ()=>{
-    console.log("listening on port 80")
-})
+
+app.listen(2000, function (err) {
+    if (err) { console.error(err); }
+    else { console.log("Server started"); }
+});
